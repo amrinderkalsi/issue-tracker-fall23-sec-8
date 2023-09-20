@@ -3,8 +3,7 @@ import IssueRow from './IssueRow';
 
 class IssueTable extends Component {
     render() {
-    const { issues } = this.props;
-    console.log(issues); 
+    const { issues } = this.props; 
 
     const issuesRow = issues.map(issue => {
         return(
