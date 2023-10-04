@@ -21,7 +21,15 @@ class IssueList extends Component {
     .then(res => res.json())
     .then(data => {
       console.log(data);
+      
+      data.records.forEach(issue => {
+        issue.created = new Date(issue.created);
+        if (issue.completionDate) {
+          issue.completionDate = new Date(issue.completionDate);
+        }
+      });
       this.setState({issues: data.records})
+
     }).catch(err => console.error(err));
 
   }
