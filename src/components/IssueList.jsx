@@ -88,6 +88,7 @@ class IssueList extends Component {
   })
     .then((res) => res.json())
     .then((body) => {
+      console.log(body);
       body.data.issueAdd.created = new Date(body.data.issueAdd.created);
       if (body.data.issueAdd.completionDate) {
         body.data.issueAdd.completionDate = new Date(body.data.issueAdd.completionDate);
