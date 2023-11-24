@@ -6,7 +6,6 @@ class IssueFilter extends Component {
         status: '',
         effort: ''
     }
-
     constructor() {
         super();
         this.state = {
@@ -14,36 +13,44 @@ class IssueFilter extends Component {
         }
     }
 
-    handleStatusChange = (e) => {
-        this.setState({status: e.target.value})
+    handleSelectChange = (e) => {
+        this.setState({ status: e.target.value })
     }
 
     handleEffortChange = (e) => {
         const effortString = e.target.value;
         if (effortString.match(/^\d*$/)) {
-            this.setState({effort: e.target.value})
+            this.setState({ effort: e.target.value })
         }
     }
 
+    handleApplyClick = () => {
+        this.props.filterIssue({status: this.state.status, effort: this.state.effort})
+    }
+
+    handleResetClick = () => {
+        this.props.filterIssue({status: '', effort: ''})
+        this.setState({ status: '', effort: ''});
+    }
+
     render() {
-        return(
+        return (
             <div>
                 Status
                 {' '}
-                <select value={this.state.status} onChange={this.handleStatusChange}>
-                    <option value=""></option>
+                <select value={this.state.status} onChange={this.handleSelectChange} >
+                    <option value="" />
                     <option value="Open">Open</option>
                     <option value="Assigned">Assigned</option>
                     <option value="New">New</option>
                 </select>
                 {' '}
                 Effort
+                <input type="text" value={this.state.effort} onChange={this.handleEffortChange}/>
                 {' '}
-                <input type="text"  value={this.state.effort} onChange={this.handleEffortChange}/>
+                <button onClick={this.handleApplyClick} disabled={!(this.state.status || this.state.effort)}>Apply</button>
                 {' '}
-                <button>Apply</button>
-                {' '}
-                <button>Reset</button>
+                <button onClick={this.handleResetClick} disabled={!(this.state.status || this.state.effort)}>Reset</button>
             </div>
         );
     }
